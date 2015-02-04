@@ -38,6 +38,10 @@ public class Game extends BasicGame {
 	@Override
 	public void init(GameContainer gc) throws SlickException {
 		screen = new GameScreen("map_test.tmx");
+		
+		// Set updates per second to 20
+		gc.setMinimumLogicUpdateInterval(50);
+		gc.setMaximumLogicUpdateInterval(50);
 	}
 
 	@Override
