@@ -7,6 +7,7 @@ import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
 import com.minymin.game.screen.GameScreen;
@@ -41,6 +42,14 @@ public class Game extends BasicGame {
 
 	@Override
 	public void update(GameContainer gc, int i) throws SlickException {
+		Input in = gc.getInput();
+		if (in.isKeyPressed(Input.KEY_ESCAPE)) {
+			if (screen instanceof GameScreen) {
+				screen = new PauseScreen((GameScreen)screen);
+			} else if (screen instanceof PauseScreen) {
+				screen = ((PauseScreen)screen).getParent();
+			}
+		}
 	}
 
 	@Override

@@ -26,5 +26,9 @@ public class PauseScreen implements Screen {
 		parent.render(gc, g);
 		g.drawString("PAUSED", gc.getWidth()/2-10, gc.getHeight()/2-10);
 	}
+	
+	public GameScreen getParent() {
+		return parent;
+	}
 
 }
