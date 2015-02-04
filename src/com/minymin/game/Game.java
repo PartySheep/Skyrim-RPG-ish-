@@ -9,8 +9,12 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
+import com.minymin.game.world.World;
+
 public class Game extends BasicGame {
 
+	private World world;
+	
 	public Game(String title) {
 		super(title);
 	}
@@ -30,6 +34,7 @@ public class Game extends BasicGame {
 
 	@Override
 	public void init(GameContainer gc) throws SlickException {
+		world = new World("map_test.tmx");
 	}
 
 	@Override
@@ -38,8 +43,7 @@ public class Game extends BasicGame {
 
 	@Override
 	public void render(GameContainer gc, Graphics g) throws SlickException {
-		g.drawString("Hello World!", 10, 10);
-		
+		world.render();
 	}
 
 }
