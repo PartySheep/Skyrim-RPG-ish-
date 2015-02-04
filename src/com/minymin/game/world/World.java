@@ -17,8 +17,16 @@ public class World {
 		}
 	}
 	
+	public void load() {
+		// TODO Load entities and world data from file
+	}
+	
 	public void render() {
 		this.map.render(0, 0);
+	}
+	
+	public void tick() {
+		// TODO Tick entities/time/etc.
 	}
 	
 }

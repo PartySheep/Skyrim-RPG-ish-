@@ -9,11 +9,13 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
-import com.minymin.game.world.World;
+import com.minymin.game.screen.GameScreen;
+import com.minymin.game.screen.PauseScreen;
+import com.minymin.game.screen.Screen;
 
 public class Game extends BasicGame {
 
-	private World world;
+	private Screen screen;
 	
 	public Game(String title) {
 		super(title);
@@ -34,7 +36,7 @@ public class Game extends BasicGame {
 
 	@Override
 	public void init(GameContainer gc) throws SlickException {
-		world = new World("map_test.tmx");
+		screen = new GameScreen("map_test.tmx");
 	}
 
 	@Override
@@ -43,7 +45,7 @@ public class Game extends BasicGame {
 
 	@Override
 	public void render(GameContainer gc, Graphics g) throws SlickException {
-		world.render();
+		screen.render(gc, g);
 	}
 
 }
