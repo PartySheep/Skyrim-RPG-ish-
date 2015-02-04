@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="20" height="20" tilewidth="32" tileheight="32" nextobjectid="1">
+ <tileset firstgid="1" name="grass" tilewidth="32" tileheight="32">
+  <image source="../../../../../../../Volumes/Secondary HD/Downloads/tileset/grass-tiles-2-small.png" width="384" height="192"/>
+ </tileset>
+ <layer name="Tile Layer 1" width="20" height="20">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAA32U3QrCMAyFm4LuB1bQOS/Ea+f7P6EtJPB57Lw4bG2Sk5MmraWUzLEA74q5YqvYK0pFhj37nmEdtoKvgW8Dn3mMgZtctBkQ68Y3usZdeAo0hC6DLaffGnr1Mm5BrMZr3Ty/u+gjRy/2dYBrxVCxVlz++ClazOR1rb4efD06Jtc5+Hf2/xm+k2N0ntX/N/CPHh8c0R/mDnusHwc4Q9Ppj5+id65t7wm+Xj84H5wR7f8RX0nfM62x5GOu0BF8MX/0Zy3KmTs2c76b6NMaeLdy+tVPzid6vIsPz03PjzmoIfQFn74BvPPUSp28z42vzVS8B8yvdZNbc7EfU/qeF32zOGeE5lmgL/jYO/ay15siPtqr3MnPmtWHsfp+c1/vQO/N/gCM9jMaQAYAAA==
+  </data>
+ </layer>
+</map>
