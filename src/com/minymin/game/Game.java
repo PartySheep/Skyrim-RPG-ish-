@@ -40,8 +40,8 @@ public class Game extends BasicGame {
 		screen = new GameScreen("map_test.tmx");
 		
 		// Set updates per second to 20
-		gc.setMinimumLogicUpdateInterval(50);
-		gc.setMaximumLogicUpdateInterval(50);
+		//gc.setMinimumLogicUpdateInterval(20);
+		gc.setMaximumLogicUpdateInterval(60);
 	}
 
 	@Override
@@ -54,6 +54,7 @@ public class Game extends BasicGame {
 				screen = ((PauseScreen)screen).getParent();
 			}
 		}
+		screen.update(gc, i);
 	}
 
 	@Override

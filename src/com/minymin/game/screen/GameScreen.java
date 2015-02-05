@@ -20,12 +20,12 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void update(GameContainer gc, int i) {
-		world.tick();
+		world.update(gc, i);
 	}
 
 	@Override
 	public void render(GameContainer gc, Graphics g) {
-		world.render();
+		world.render(gc, g);
 	}
 
 }
