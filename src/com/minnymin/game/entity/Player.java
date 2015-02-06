@@ -6,6 +6,7 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Vector2f;
 
+import com.minnymin.game.math.FreeBody;
 import com.minymin.game.util.MathHelper;
 
 public class Player extends Entity {
@@ -142,8 +143,21 @@ public class Player extends Entity {
 		velocity.x = MathHelper.round(velocity.x, 4);
 		velocity.y = MathHelper.round(velocity.y, 4);
 		
-		xPos += delta*velocity.getX();
-		yPos += delta*velocity.getY();
+		if (!world.doesCollide((int) xPos, (int) (yPos+delta*velocity.getY()), getBody())) {
+			yPos += delta*velocity.getY();
+		} else {
+			velocity.y = 0;
+		}
+		if (!world.doesCollide((int) (xPos+delta*velocity.getX()), (int) yPos, getBody())) {
+			xPos += delta*velocity.getX();
+		} else {
+			velocity.x = 0;
+		}
+	}
+	
+	@Override
+	public FreeBody getBody() {
+		return new FreeBody(10, 10);
 	}
 
 }

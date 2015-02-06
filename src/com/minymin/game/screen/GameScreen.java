@@ -15,7 +15,6 @@ public class GameScreen implements Screen {
 	
 	@Override
 	public void init() {
-		world.load();
 	}
 
 	@Override
