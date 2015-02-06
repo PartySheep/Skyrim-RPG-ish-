@@ -108,6 +108,12 @@ public class World {
 				}
 			}
 		}
+		if (x > map.getWidth()*map.getTileWidth() || x < 0) {
+			return true;
+		}
+		if (y > map.getHeight()*map.getTileHeight() || y < 0) {
+			return true;
+		}
 		return false;
 	}
 
