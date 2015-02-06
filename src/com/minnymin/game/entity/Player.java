@@ -1,5 +1,6 @@
 package com.minnymin.game.entity;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
@@ -20,12 +21,14 @@ public class Player extends Entity {
 	private int keyRight = Input.KEY_D;
 	private int keyJump = Input.KEY_SPACE;
 
-	private int health;
-	private int mana;
-	private int armour;
-	private int skillPoints;
-	private int numSteps;
-	private int score;
+	protected int health=50;
+	protected int maxHealth=100;
+	protected  int mana;
+	protected  int maxMana;
+	protected  int armour;
+	protected  int skillPoints;
+	protected int numSteps;
+	protected  int score;
 
 	public Player(int health, int mana, int armour, int numSteps, int scale,
 			int score, int speed, int skillPoints) {
@@ -92,13 +95,18 @@ public class Player extends Entity {
 	@Override
 	public void render(GameContainer gc, Graphics g) {
 		g.draw(new Rectangle(xPos, yPos, 10, 10));
+		/*g.setColor(Color.black);
+		g.drawRect(xPos,yPos-10, maxHealth/2, 10);
+		g.setColor(Color.green);
+		g.fillRect(xPos, yPos-10, health/2, 10);*/
+	
 	}
 
 	@Override
 	public void update(GameContainer gc, int delta) {
 		move(gc.getInput(), delta);
 	}
-
+	
 	private void move(Input input, int delta) {
 		if (input.isKeyDown(keyUp)) {
 			if (velocity.y > -maxSpeed) {
