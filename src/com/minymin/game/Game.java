@@ -28,7 +28,8 @@ public class Game extends BasicGame {
 		
 			appgc = new AppGameContainer(new Game("Hello World"));
 			appgc.setShowFPS(false);
-			appgc.setDisplayMode(640, 480, false);// That boolean make fullscreen unescapable!!!!!
+			appgc.setDisplayMode(1024, 576, false);// That boolean make fullscreen unescapable!!!!!
+			appgc.setShowFPS(true);
 			appgc.start();
 		} catch (SlickException ex) {
 			Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);

@@ -13,6 +13,7 @@ public class Player extends Entity {
 
 	private float acceleration = 0.005f;
 	private float maxSpeed = 0.3f;
+	private float jumpStrength = 0.5f;
 
 	private int keyDown = Input.KEY_S;
 	private int keyUp = Input.KEY_W;
@@ -91,7 +92,7 @@ public class Player extends Entity {
 
 	@Override
 	public void render(GameContainer gc, Graphics g) {
-		g.draw(new Rectangle(xPos, yPos, 10, 10));
+		g.fillRect(xPos, yPos, 20, 20);
 	}
 
 	@Override
@@ -100,26 +101,11 @@ public class Player extends Entity {
 	}
 
 	private void move(Input input, int delta) {
-		if (input.isKeyDown(keyUp)) {
-			if (velocity.y > -maxSpeed) {
-				velocity.add(new Vector2f(0, -acceleration));
-			}
-		} else {
-			if (velocity.y < 0) {
-				velocity.sub(new Vector2f(0, -acceleration));
-			}
+		if (input.isKeyPressed(keyJump)
+				&& velocity.getY() == 0) {
+			velocity.add(new Vector2f(0, -jumpStrength));
 		}
-		
-		if (input.isKeyDown(keyDown)) {
-			if (velocity.y < maxSpeed) {
-				velocity.add(new Vector2f(0, acceleration));
-			}
-		} else {
-			if (velocity.y > 0) {
-				velocity.sub(new Vector2f(0, acceleration));
-			}
-		}
-		
+
 		if (input.isKeyDown(keyRight)) {
 			if (velocity.x < maxSpeed) {
 				velocity.add(new Vector2f(acceleration, 0));
@@ -129,7 +115,7 @@ public class Player extends Entity {
 				velocity.sub(new Vector2f(acceleration, 0));
 			}
 		}
-		
+
 		if (input.isKeyDown(keyLeft)) {
 			if (velocity.x > -maxSpeed) {
 				velocity.add(new Vector2f(-acceleration, 0));
@@ -139,25 +125,29 @@ public class Player extends Entity {
 				velocity.sub(new Vector2f(-acceleration, 0));
 			}
 		}
-		
+
+		velocity.add(new Vector2f(0, 0.00985f)); // Gravity
+
 		velocity.x = MathHelper.round(velocity.x, 4);
 		velocity.y = MathHelper.round(velocity.y, 4);
-		
-		if (!world.doesCollide((int) xPos, (int) (yPos+delta*velocity.getY()), getBody())) {
-			yPos += delta*velocity.getY();
+
+		if (!world.doesCollide((int) xPos,
+				(int) (yPos + delta * velocity.getY()), getBody())) {
+			yPos += delta * velocity.getY();
 		} else {
 			velocity.y = 0;
 		}
-		if (!world.doesCollide((int) (xPos+delta*velocity.getX()), (int) yPos, getBody())) {
-			xPos += delta*velocity.getX();
+		if (!world.doesCollide((int) (xPos + delta * velocity.getX()),
+				(int) yPos, getBody())) {
+			xPos += delta * velocity.getX();
 		} else {
 			velocity.x = 0;
 		}
 	}
-	
+
 	@Override
 	public FreeBody getBody() {
-		return new FreeBody(10, 10);
+		return new FreeBody(20, 20);
 	}
 
 }

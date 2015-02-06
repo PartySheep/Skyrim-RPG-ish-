@@ -50,10 +50,12 @@ public class World {
 	}
 
 	public void render(GameContainer gc, Graphics g) {
-		this.map.render(0, 0);
+		this.map.render(0, 0, backgroundLayer);
+		this.map.render(0, 0, foregroundLayer);
 		for (Entity entity : this.entities) {
 			entity.render(gc, g);
 		}
+		this.map.render(0, 0, topLayer);
 	}
 
 	public void update(GameContainer gc, int i) {
@@ -112,6 +114,25 @@ public class World {
 			return true;
 		}
 		if (y > map.getHeight()*map.getTileHeight() || y < 0) {
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean doesCollideY(int x, int y) {
+		int objX, objY, objWidth, objHeight;
+		for (int i = 0; i < map.getObjectCount(0); i++) {
+			objX = map.getObjectX(0, i);
+			objY = map.getObjectY(0, i);
+			objWidth = map.getObjectWidth(0, i);
+			objHeight = map.getObjectHeight(0, i);
+			if (x >= objX && x <= objWidth + objX) {
+				if (y >= objY && y <= objHeight + objY) {
+					return true;
+				}
+			}
+		}
+		if (x > map.getWidth()*map.getTileWidth() || x < 0) {
 			return true;
 		}
 		return false;
