@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
@@ -25,7 +26,6 @@ public class Game extends BasicGame {
 	public static void main(String[] args) {
 		try {
 			AppGameContainer appgc;
-		
 			appgc = new AppGameContainer(new Game("Hello World"));
 			appgc.setShowFPS(false);
 			appgc.setDisplayMode(1024, 576, false);// That boolean make fullscreen unescapable!!!!!
@@ -55,6 +55,7 @@ public class Game extends BasicGame {
 				screen = ((PauseScreen)screen).getParent();
 			}
 		}
+		
 		screen.update(gc, i);
 	}
 
@@ -62,5 +63,4 @@ public class Game extends BasicGame {
 	public void render(GameContainer gc, Graphics g) throws SlickException {
 		screen.render(gc, g);
 	}
-
 }

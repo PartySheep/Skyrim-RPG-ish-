@@ -1,5 +1,6 @@
 package com.minnymin.game.entity;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Vector2f;
@@ -22,7 +23,9 @@ public class Entity {
 	}
 	
 	public void render(GameContainer gc, Graphics g) {
+	
 	}
+	
 	
 	public void update(GameContainer gc, int i) {
 		
