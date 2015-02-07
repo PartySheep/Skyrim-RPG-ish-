@@ -144,10 +144,9 @@ public class Player extends Entity {
 		} else {
 			velocity.y = 0;
 			if (collision.getSide() == CollisionSide.TOP) {
-				yPos = collision.getObject().getY() - height; // Make object
-																// stop on
-																// surface of
-																// collision
+				yPos = collision.getObject().getY() - height;
+			} else if (collision.getSide() == CollisionSide.BOTTOM) {
+				yPos = collision.getObject().getY() + collision.getObject().getHeight();
 			}
 			newPos = getBody();
 		}
@@ -157,6 +156,11 @@ public class Player extends Entity {
 			xPos += xVelocity;
 		} else {
 			velocity.x = 0;
+			if (collision.getSide() == CollisionSide.LEFT) {
+				xPos = collision.getObject().getX() - width;
+			} else if (collision.getSide() == CollisionSide.RIGHT) {
+				xPos = collision.getObject().getX() + collision.getObject().getWidth();
+			}
 		}
 	}
 }

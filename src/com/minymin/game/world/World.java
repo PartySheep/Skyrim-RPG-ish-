@@ -84,31 +84,25 @@ public class World {
 					obj.getY() + obj.getHeight());
 
 			if (body.contains(topLeft)) {
-				if (speedX > speedY) {
+				if (speedX >= speedY) {
 					return new Collision(body, CollisionSide.RIGHT);
 				} else {
 					return new Collision(body, CollisionSide.BOTTOM);
 				}
-			}
-
-			if (body.contains(topRight)) {
-				if (speedX > speedY) {
+			} else if (body.contains(topRight)) {
+				if (speedX >= speedY) {
 					return new Collision(body, CollisionSide.LEFT);
 				} else {
 					return new Collision(body, CollisionSide.BOTTOM);
 				}
-			}
-
-			if (body.contains(bottomLeft)) {
-				if (speedX > speedY) {
+			} else if (body.contains(bottomLeft)) {
+				if (speedX >= speedY) {
 					return new Collision(body, CollisionSide.RIGHT);
 				} else {
 					return new Collision(body, CollisionSide.TOP);
 				}
-			}
-
-			if (body.contains(bottomRight)) {
-				if (speedX > speedY) {
+			} else if (body.contains(bottomRight)) {
+				if (speedX >= speedY) {
 					return new Collision(body, CollisionSide.LEFT);
 				} else {
 					return new Collision(body, CollisionSide.TOP);
