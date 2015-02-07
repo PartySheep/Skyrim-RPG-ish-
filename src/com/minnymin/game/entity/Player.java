@@ -3,9 +3,11 @@ package com.minnymin.game.entity;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
+import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Vector2f;
 
-import com.minnymin.game.math.FreeBody;
+import com.minymin.game.util.Collision;
+import com.minymin.game.util.Collision.CollisionSide;
 import com.minymin.game.util.MathHelper;
 
 public class Player extends Entity {
@@ -27,6 +29,9 @@ public class Player extends Entity {
 
 	public Player(int health, int mana, int armour, int numSteps, int scale,
 			int score, int speed, int skillPoints) {
+		super();
+		this.width = 20;
+		this.height = 20;
 		this.health = health;
 		this.armour = armour;
 		this.numSteps = numSteps;
@@ -89,7 +94,7 @@ public class Player extends Entity {
 
 	@Override
 	public void render(GameContainer gc, Graphics g) {
-		g.fillRect(xPos, yPos, 20, 20);
+		g.fillRect(xPos, yPos, width, height);
 	}
 
 	@Override
@@ -98,8 +103,7 @@ public class Player extends Entity {
 	}
 
 	private void move(Input input, int delta) {
-		if (input.isKeyPressed(keyJump)
-				&& velocity.getY() == 0) {
+		if (input.isKeyPressed(keyJump) && velocity.getY() == 0) {
 			velocity.add(new Vector2f(0, -jumpStrength));
 		}
 
@@ -123,28 +127,36 @@ public class Player extends Entity {
 			}
 		}
 
-		velocity.add(new Vector2f(0, delta*0.000985f)); // Gravity
+		velocity.add(new Vector2f(0, delta * 0.000985f)); // Gravity
 
 		velocity.x = MathHelper.round(velocity.x, 4);
 		velocity.y = MathHelper.round(velocity.y, 4);
 
-		if (!world.doesCollide((int) xPos,
-				(int) (yPos + delta * velocity.getY()), getBody())) {
-			yPos += delta * velocity.getY();
+		Rectangle newPos = getBody();
+		Collision collision = null;
+
+		float xVelocity = velocity.getX() * delta;
+		float yVelocity = velocity.getY() * delta;
+
+		newPos.setY(yPos + yVelocity);
+		if ((collision = world.doesCollide(newPos, xVelocity, yVelocity)) == null) {
+			yPos += yVelocity;
 		} else {
 			velocity.y = 0;
+			if (collision.getSide() == CollisionSide.TOP) {
+				yPos = collision.getObject().getY() - height; // Make object
+																// stop on
+																// surface of
+																// collision
+			}
+			newPos = getBody();
 		}
-		if (!world.doesCollide((int) (xPos + delta * velocity.getX()),
-				(int) yPos, getBody())) {
-			xPos += delta * velocity.getX();
+
+		newPos.setX(xPos + xVelocity);
+		if ((collision = world.doesCollide(newPos, xVelocity, yVelocity)) == null) {
+			xPos += xVelocity;
 		} else {
 			velocity.x = 0;
 		}
 	}
-
-	@Override
-	public FreeBody getBody() {
-		return new FreeBody(20, 20);
-	}
-
 }

@@ -2,15 +2,17 @@ package com.minnymin.game.entity;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Vector2f;
 
-import com.minnymin.game.math.FreeBody;
 import com.minymin.game.world.World;
 
 public class Entity {
 
 	protected float xPos;
 	protected float yPos;
+	protected float width;
+	protected float height;
 	protected Vector2f velocity;
 
 	protected World world;
@@ -18,6 +20,8 @@ public class Entity {
 	public Entity() {
 		xPos = 0;
 		yPos = 0;
+		width = 0;
+		height = 0;
 		velocity = new Vector2f();
 	}
 
@@ -33,8 +37,8 @@ public class Entity {
 		this.world = world;
 	}
 
-	public FreeBody getBody() {
-		return new FreeBody(0, 0);
+	public Rectangle getBody() {
+		return new Rectangle(xPos, yPos, width, height);
 	}
 
 }
