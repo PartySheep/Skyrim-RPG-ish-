@@ -3,7 +3,6 @@ package com.minnymin.game.entity;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
-import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Vector2f;
 
 import com.minnymin.game.math.FreeBody;
@@ -15,8 +14,6 @@ public class Player extends Entity {
 	private float maxSpeed = 0.3f;
 	private float jumpStrength = 0.5f;
 
-	private int keyDown = Input.KEY_S;
-	private int keyUp = Input.KEY_W;
 	private int keyLeft = Input.KEY_A;
 	private int keyRight = Input.KEY_D;
 	private int keyJump = Input.KEY_SPACE;
@@ -126,7 +123,7 @@ public class Player extends Entity {
 			}
 		}
 
-		velocity.add(new Vector2f(0, 0.00985f)); // Gravity
+		velocity.add(new Vector2f(0, delta*0.000985f)); // Gravity
 
 		velocity.x = MathHelper.round(velocity.x, 4);
 		velocity.y = MathHelper.round(velocity.y, 4);
