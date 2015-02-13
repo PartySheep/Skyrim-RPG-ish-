@@ -11,7 +11,6 @@ import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.tiled.TiledMap;
 
 import com.minnymin.game.entity.Entity;
-import com.minnymin.game.entity.Player;
 import com.minymin.game.util.Collision;
 import com.minymin.game.util.Collision.CollisionSide;
 
@@ -23,6 +22,9 @@ public class World {
 	private List<Entity> entities;
 	private List<Rectangle> bodies;
 
+	private int width;
+	private int height;
+	
 	private int backgroundLayer;
 	private int foregroundLayer;
 	private int collisionLayer;
@@ -37,7 +39,6 @@ public class World {
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
-		spawn(new Player(0, 0, 0, 0, 0, 0, 0, 0));
 	}
 
 	public void load() throws SlickException {
@@ -56,16 +57,19 @@ public class World {
 					.getObjectY(0, i), this.map.getObjectWidth(0, i), this.map
 					.getObjectHeight(0, i)));
 		}
+		width = this.map.getWidth() * this.map.getTileWidth();
+		height = this.map.getHeight() * this.map.getTileHeight();
 		// TODO Load entities and world data from file
 	}
 
-	public void render(GameContainer gc, Graphics g) {
-		this.map.render(0, 0, backgroundLayer);
-		this.map.render(0, 0, foregroundLayer);
+	public void render(GameContainer gc, Graphics g, int cameraX, int cameraY) {
+		this.map.render(-cameraX, -cameraY, backgroundLayer);
+		this.map.render(-cameraX, -cameraY, foregroundLayer);
 		for (Entity entity : this.entities) {
-			entity.render(gc, g);
+			entity.render(gc, g, (int)entity.getX()-cameraX, (int)entity.getY()-cameraY);
 		}
-		this.map.render(0, 0, topLayer);
+		this.map.render(-cameraX, -cameraY, topLayer);
+		
 	}
 
 	public void update(GameContainer gc, int i) {
@@ -74,15 +78,22 @@ public class World {
 		}
 	}
 
+	public int getWidth() {
+		return width;
+	}
+	
+	public int getHeight() {
+		return height;
+	}
+	
 	public Collision doesCollide(Rectangle obj, float speedX, float speedY) {
+		Point topLeft = new Point(obj.getX(), obj.getY());
+		Point topRight = new Point(obj.getX() + obj.getWidth(), obj.getY());
+		Point bottomLeft = new Point(obj.getX(), obj.getY()
+				+ obj.getHeight());
+		Point bottomRight = new Point(obj.getX() + obj.getWidth(),
+				obj.getY() + obj.getHeight());
 		for (Rectangle body : bodies) {
-			Point topLeft = new Point(obj.getX(), obj.getY());
-			Point topRight = new Point(obj.getX() + obj.getWidth(), obj.getY());
-			Point bottomLeft = new Point(obj.getX(), obj.getY()
-					+ obj.getHeight());
-			Point bottomRight = new Point(obj.getX() + obj.getWidth(),
-					obj.getY() + obj.getHeight());
-
 			if (body.contains(topLeft)) {
 				if (speedX >= speedY) {
 					return new Collision(body, CollisionSide.RIGHT);
@@ -107,6 +118,15 @@ public class World {
 				} else {
 					return new Collision(body, CollisionSide.TOP);
 				}
+			}
+			if (topLeft.getX() < 0) {
+				return new Collision(new Rectangle(0, 0, 0, height), CollisionSide.RIGHT);
+			} else if (topRight.getX() > width) {
+				return new Collision(new Rectangle(width, 0, 0, height), CollisionSide.LEFT);
+			} else if (topLeft.getY() < 0) {
+				return new Collision(new Rectangle(0, 0, width, 0), CollisionSide.BOTTOM);
+			} else if (bottomLeft.getY() > height) {
+				return new Collision(new Rectangle(0, height, width, 0), CollisionSide.TOP);
 			}
 		}
 		return null;

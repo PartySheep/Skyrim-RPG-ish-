@@ -11,6 +11,8 @@ public class Entity {
 
 	protected float xPos;
 	protected float yPos;
+	protected float prevX;
+	protected float prevY;
 	protected float width;
 	protected float height;
 	protected Vector2f velocity;
@@ -25,12 +27,28 @@ public class Entity {
 		velocity = new Vector2f();
 	}
 
-	public void render(GameContainer gc, Graphics g) {
+	public void render(GameContainer gc, Graphics g, int x, int y) {
 
 	}
 
 	public void update(GameContainer gc, int i) {
 
+	}
+	
+	public float getX() {
+		return xPos;
+	}
+	
+	public float getY() {
+		return yPos;
+	}
+	
+	public float getPreviousX() {
+		return prevX;
+	}
+	
+	public float getPreviousY() {
+		return prevY;
 	}
 
 	public void setWorld(World world) {

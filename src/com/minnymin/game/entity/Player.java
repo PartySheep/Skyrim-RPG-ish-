@@ -93,8 +93,8 @@ public class Player extends Entity {
 	}
 
 	@Override
-	public void render(GameContainer gc, Graphics g) {
-		g.fillRect(xPos, yPos, width, height);
+	public void render(GameContainer gc, Graphics g, int x, int y) {
+		g.fillRect(x, y, width, height);
 	}
 
 	@Override
@@ -103,6 +103,8 @@ public class Player extends Entity {
 	}
 
 	private void move(Input input, int delta) {
+		prevX = xPos;
+		prevY = yPos;
 		if (input.isKeyPressed(keyJump) && velocity.getY() == 0) {
 			velocity.add(new Vector2f(0, -jumpStrength));
 		}
