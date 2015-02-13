@@ -61,9 +61,6 @@ public class GameScreen implements Screen {
 				}
 			}
 		}
-
-		System.out.println(cameraX + " - " + cameraY);
-		
 		world.render(gc, g, cameraX, cameraY);
 	}
 
